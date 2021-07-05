@@ -38,10 +38,14 @@ const ShareReport = (props) => {
         
     }
 
+    const handleCancel = () => {
+        props.closeReportForm();
+    }
+
     return (
         <div className="share-report-container">
         
-        <button className="share-report-exit-btn"><img src ={closeButton} alt=""></img></button>
+        <button className="share-report-exit-btn" onClick={props.closeReportForm}><img src ={closeButton} alt=""></img></button>
         <form className ="share-report-form" type="submit" value="Submit">
             
             <h2>Primary Report {currentYear}</h2>
@@ -53,7 +57,7 @@ const ShareReport = (props) => {
             <textarea id="reportNotes"className ="report-notes-input" placeholder="Optional" onChange={handleNotesChange} required></textarea>
             {"\n"}
             <div className="share-report-form-btns">
-                <button className="cancel-btn">Cancel</button>
+                <button className="cancel-btn" onClick={props.closeReportForm}>Cancel</button>
                 <button className="share-report-submit-btn" type="submit" onClick={handleSubmit}>Share Report</button>
             </div>
         </form>
