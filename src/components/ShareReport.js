@@ -10,8 +10,8 @@ const ShareReport = (props) => {
     }
 
     const [currentYear, setCurrentYear] = useState(getYear())
-    const [emails, setEmails] = useState(0);
-    const [reportNotes, setReportNotes] = useState(0);
+    const [emails, setEmails] = useState();
+    const [reportNotes, setReportNotes] = useState();
 
 
     const handleEmailChange = event => {
@@ -33,14 +33,17 @@ const ShareReport = (props) => {
     const handleSubmit = e => {
         e.preventDefault();
         //validate email call
-
-        props.formHandler(formatEmails(emails), reportNotes);
+        if(emails != null && reportNotes != null) {
+            props.formHandler(formatEmails(emails), reportNotes);
+        }
+        else {
+            alert("Please fill out the required fields.")
+        }
+       
         
     }
 
-    const handleCancel = () => {
-        props.closeReportForm();
-    }
+
 
     return (
         <div className="share-report-container">

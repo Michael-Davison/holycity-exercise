@@ -18,7 +18,6 @@ function App() {
   }
 
   
-  //const [reportNotes, setReportNotes] = useState(0);
   const closeReportForm = () => {
    setShowReportForm(!showReportForm);
   }
