@@ -9,11 +9,14 @@ function App() {
   const [showReportForm, setShowReportForm] = useState(true);
 
 
-  const reportFormHandler = (email, reportNotes) =>
+  const reportFormHandler = (emails, reportNotes) =>
 
   {
-    //service.reports call to backend
-    console.log(email, reportNotes);
+   
+    console.log(emails, reportNotes);
+
+    //opens your native mailbox and populates with params
+    window.open('mailto:'+emails+'?subject=subject&body=' + reportNotes);
     
   }
 

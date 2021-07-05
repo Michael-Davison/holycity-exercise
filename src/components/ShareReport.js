@@ -1,11 +1,14 @@
-import React, {Component, useState} from "react";
+import React, { Component, useState } from "react";
 import '../css/App.css'
-import '../css/ShareReportForm.css'
-import closeButton from "../resources/close-button.png"
+import styled from "styled-components";
+
 
 const ShareReport = (props) => {
 
-   const getYear = () => {
+
+
+
+    const getYear = () => {
         return new Date().getFullYear();
     }
 
@@ -16,62 +19,170 @@ const ShareReport = (props) => {
 
     const handleEmailChange = event => {
         let emailInput = event.target.value;
-      
-        setEmails(emailInput);
-      };
 
-      const handleNotesChange = event => {
+        setEmails(emailInput);
+    };
+
+    const handleNotesChange = event => {
         let reportNotesInput = event.target.value;
         setReportNotes(reportNotesInput);
-      };
-    
+    };
+
     const formatEmails = () => {
         let emailsFormatted = emails.split(",")
         return emailsFormatted
-       
+
     }
     const handleSubmit = e => {
         e.preventDefault();
         //validate email call
-        if(emails != null && reportNotes != null) {
+        if (emails != null && reportNotes != null) {
             props.formHandler(formatEmails(emails), reportNotes);
         }
         else {
             alert("Please fill out the required fields.")
         }
-       
-        
+
+
     }
 
 
 
     return (
-        <div className="share-report-container">
-        
-        <button className="share-report-exit-btn" onClick={props.closeReportForm}><img src ={closeButton} alt=""></img></button>
-        <form className ="share-report-form" type="submit" value="Submit">
-            
-            <h2>Primary Report {currentYear}</h2>
-            <label>Enter email addresses separated by coma {"\n"}</label>
-            <input id="email" type="email" className="email-input"placeholder="John.doe@pharmacy.net" onChange={handleEmailChange} required></input>
-            {"\n"}
-            <label>Add a note</label>
-            {"\n"}
-            <textarea id="reportNotes"className ="report-notes-input" placeholder="Optional" onChange={handleNotesChange} required></textarea>
-            {"\n"}
-            <div className="share-report-form-btns">
-                <button className="cancel-btn" onClick={props.closeReportForm}>Cancel</button>
-                <button className="share-report-submit-btn" type="submit" onClick={handleSubmit}>Share Report</button>
-            </div>
-        </form>
+        <StyledShareReportFormContainer>
 
-        </div>
-        
+            <StyledExitBtn onClick={props.closeReportForm}>X</StyledExitBtn>
+
+            <StyledShareReportForm type="submit" value="Submit">
+
+                <StyledHeader>Primary Report {currentYear}</StyledHeader>
+                <StyledLabel>Enter email addresses separated by coma {"\n"}</StyledLabel>
+                <StyledInput type="email" placeholder="John.doe@pharmacy.net" onChange={handleEmailChange} required></StyledInput>
+                {"\n"}
+                <StyledLabel>Add a note</StyledLabel>
+                {"\n"}
+                <StyledTextArea id="reportNotes" placeholder="Optional" onChange={handleNotesChange} required></StyledTextArea>
+                {"\n"}
+                <StyledBtnDiv>
+                    <StyledCancelBtn onClick={props.closeReportForm}>Cancel</StyledCancelBtn>
+                    <StyledSubmitBtn type="submit" onClick={handleSubmit}>Share Report</StyledSubmitBtn>
+                </StyledBtnDiv>
+            </StyledShareReportForm>
+
+        </StyledShareReportFormContainer>
+
     );
 
 
 };
 
 
+const StyledShareReportFormContainer = styled.div`
+    margin: auto;
+    justify-content: center;
+    width: 586px;
+    height: 597px;
+    background-color: white;
+    border-radius: 10px;
+    margin-top:10%; 
+    position: relative;
+
+    *  {
+        margin: 1%;
+        margin-bottom: 10%;
+        }
+    `;
+
+const StyledShareReportForm = styled.form`
+    display:inline-block;
+    text-align: left;
+    width: 80%;
+    height: 80%;
+    margin-top: 15%;
+    `;
+
+const StyledHeader = styled.h2`
+    text-align: center;
+    font-size:22px;
+    font-weight:500;
+    margin-bottom: 5%;
+    color: #121a2d;
+   
+    `;
+
+const StyledLabel = styled.label`
+    color: #089bab;
+    font-size:small;
+    `;
+
+const StyledInput = styled.input`
+    border:none;
+    border-bottom: 1px solid #121A2D;
+    width: 90%;
+
+    :focus, .report-notes-input:focus {
+        outline: none;
+    }
+    ::placeholder {
+       
+        font-family: 'Poppins', sans-serif;
+     }
+
+   
+    `;
+
+const StyledSubmitBtn = styled.button`
+    background-color: #089bab;
+    color:white;
+    width: 200px;
+    height:40px;
+    margin-left: 1%;
+    `;
+
+const StyledCancelBtn = styled.button`
+    background-color: #e7e7e8;
+    width: 100px;
+    height: 40px;
+    margin-right: 1%;
+    `;
+
+const StyledTextArea = styled.textarea`
+    width: 90%;
+    height:100px;
+    border-radius: 4px;
+    border: 2px solid #121a2d;
+    resize: none;
+
+    :focus, .report-notes-input:focus {
+        outline: none;
+    }
+
+    ::placeholder {
+        opacity: .5;
+        color:#121a2d;
+        font-family: 'Poppins', sans-serif;
+        }
+    `;
+
+const StyledBtnDiv = styled.div`
+    text-align: center;
+    margin-top:10%;
+    `;
+
+const StyledExitBtn = styled.button`
+    position:absolute;
+    right: 40px;
+    top: 25px;
+    background-color: white;
+    opacity: .5;
+    font-size:larger;
+    width:3em;
+    font-weight:lighter;
+    color: #121a2d;
+    width: 2%;
+    height: 2%;
+    border: 2px solid black;
+
+    `;
 
 export default ShareReport;
