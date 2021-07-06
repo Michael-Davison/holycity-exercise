@@ -16,18 +16,6 @@ const ShareReport = (props) => {
     const [emails, setEmails] = useState();
     const [reportNotes, setReportNotes] = useState();
 
-
-    const handleEmailChange = event => {
-        let emailInput = event.target.value;
-
-        setEmails(emailInput);
-    };
-
-    const handleNotesChange = event => {
-        let reportNotesInput = event.target.value;
-        setReportNotes(reportNotesInput);
-    };
-
     const formatEmails = () => {
         let emailsFormatted = emails.split(",")
         return emailsFormatted
@@ -43,10 +31,7 @@ const ShareReport = (props) => {
             alert("Please fill out the required fields.")
         }
 
-
     }
-
-
 
     return (
         <StyledShareReportFormContainer>
@@ -57,11 +42,11 @@ const ShareReport = (props) => {
 
                 <StyledHeader>Primary Report {currentYear}</StyledHeader>
                 <StyledLabel>Enter email addresses separated by coma {"\n"}</StyledLabel>
-                <StyledInput type="email" placeholder="John.doe@pharmacy.net" onChange={handleEmailChange} required></StyledInput>
+                <StyledInput type="email" placeholder="John.doe@pharmacy.net" onChange={e=> setEmails(e.target.value)} required></StyledInput>
                 {"\n"}
                 <StyledLabel>Add a note</StyledLabel>
                 {"\n"}
-                <StyledTextArea id="reportNotes" placeholder="Optional" onChange={handleNotesChange} required></StyledTextArea>
+                <StyledTextArea id="reportNotes" placeholder="Optional" onChange={e=> setReportNotes(e.target.value)} required></StyledTextArea>
                 {"\n"}
                 <StyledBtnDiv>
                     <StyledCancelBtn onClick={props.closeReportForm}>Cancel</StyledCancelBtn>
